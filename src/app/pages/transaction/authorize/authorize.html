@@ -1,0 +1,57 @@
+<div class="container">
+  <header style="margin-bottom: 18px;">
+    <h1 class="h1">Validar transação PIX</h1>
+  </header>
+
+  <section class="card card-pad">
+    <form [formGroup]="form" (ngSubmit)="submit()" style="display:grid; gap: 12px;">
+      <div class="row-3">
+        <div class="field">
+          <label>CPF do pagador</label>
+          <input formControlName="payerCpf" placeholder="00000000000" />
+        </div>
+        <div class="field">
+          <label>Agência do pagador</label>
+          <input formControlName="payerAgency" placeholder="0001" />
+        </div>
+        <div class="field">
+          <label>Conta do pagador</label>
+          <input formControlName="payerAccount" placeholder="123456" />
+        </div>
+      </div>
+
+      <div class="row-3">
+        <div class="field">
+          <label>CPF do recebedor</label>
+          <input formControlName="receiverCpf" placeholder="00000000000" />
+        </div>
+        <div class="field">
+          <label>Agência do recebedor</label>
+          <input formControlName="receiverAgency" placeholder="0001" />
+        </div>
+        <div class="field">
+          <label>Conta do recebedor</label>
+          <input formControlName="receiverAccount" placeholder="123456" />
+        </div>
+      </div>
+
+      <div class="row-3" style="grid-template-columns: 1fr;">
+        <div class="field">
+          <label>Valor</label>
+          <input type="number" formControlName="amount" placeholder="0.00" />
+        </div>
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Enviando...' : 'Autorizar' }}
+      </button>
+    </form>
+  </section>
+
+  @if(message){
+    <div class="alert" [class.success]="message.type==='success'" [class.error]="message.type==='error'" style="margin-top:14px;">
+        {{ message.text }}
+    </div>
+  }
+  
+</div>

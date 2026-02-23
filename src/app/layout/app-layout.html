@@ -1,0 +1,37 @@
+
+  <div class="layout">
+    <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">AL</div>
+      <div class="brand-text">
+        <div class="title">AccountLimit</div>
+        <div class="subtitle">Painel</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+        @if (authService.hasRole('ANALISTA_FRAUDE')) 
+        {
+  
+            <div class="nav-section">Gestão de limite</div>
+
+            <a class="nav-item" routerLink="/limit/create" routerLinkActive="active">Cadastrar</a>
+            <a class="nav-item" routerLink="/limit/search" routerLinkActive="active">Buscar</a>
+            <a class="nav-item" routerLink="/limit/update" routerLinkActive="active">Atualizar</a>
+            <a class="nav-item" routerLink="/limit/delete" routerLinkActive="active">Deletar</a>
+        }
+
+      <div class="nav-section" style="margin-top: 14px;">Transação PIX</div>
+
+      <a class="nav-item" routerLink="/pix/authorize" routerLinkActive="active">Validar transação</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout" type="button" (click)="logout()">Sair</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

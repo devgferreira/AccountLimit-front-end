@@ -1,0 +1,71 @@
+@if (authService.hasRole('ANALISTA_FRAUDE')) 
+{
+    <div class="container">
+  <header style="margin-bottom: 18px;">
+    <h1 class="h1">Buscar limites</h1>
+  </header>
+
+  <section class="card card-pad">
+    <form [formGroup]="form" (ngSubmit)="submit()" style="display:grid; gap: 12px;">
+      <div class="row-3" style="grid-template-columns: 2fr 1fr;">
+        <div class="field">
+          <label>CPF</label>
+          <input formControlName="cpf" />
+        </div>
+        <div class="field">
+          <label>Agência (opcional)</label>
+          <input formControlName="agency" />
+        </div>
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Buscando...' : 'Buscar' }}
+      </button>
+    </form>
+  </section>
+
+  @if (message) {
+    <div class="alert"
+         [class.success]="message.type === 'success'"
+         [class.error]="message.type === 'error'"
+         style="margin-top:14px;">
+      {{ message.text }}
+    </div>
+  }
+
+  <section class="card card-pad" style="margin-top: 16px;">
+    <div style="display:flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <h2 style="margin:0; font-size: 16px;">Resultados</h2>
+      <div class="sub">{{ results.length }} item(s)</div>
+    </div>
+
+    @if (results.length > 0) {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>CPF</th>
+              <th>Agência</th>
+              <th>Conta</th>
+              <th>Limite</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (item of results; track item.cpf + '-' + item.agency + '-' + item.account) {
+              <tr>
+                <td>{{ item.cpf }}</td>
+                <td>{{ item.agency }}</td>
+                <td>{{ item.account }}</td>
+                <td>{{ item.pixTransactionLimit }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="sub">Sem resultados.</div>
+    }
+  </section>
+</div>
+}

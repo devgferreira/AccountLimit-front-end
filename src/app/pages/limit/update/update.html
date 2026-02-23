@@ -1,0 +1,38 @@
+@if (authService.hasRole('ANALISTA_FRAUDE')) 
+{
+<div class="container">
+  <header style="margin-bottom: 18px;">
+    <h1 class="h1">Atualizar limite</h1>
+  </header>
+
+  <section class="card card-pad">
+    <form [formGroup]="form" (ngSubmit)="submit()" style="display:grid; gap: 12px;">
+      <div class="row-3" style="grid-template-columns: 1fr 1fr;">
+        <div class="field">
+          <label>CPF</label>
+          <input formControlName="cpf" />
+        </div>
+        <div class="field">
+          <label>Agência</label>
+          <input formControlName="agency" />
+        </div>
+      </div>
+
+      <div class="field" style="max-width: 280px;">
+        <label>Novo limite</label>
+        <input type="number" formControlName="pixTransactionLimit" />
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </form>
+  </section>
+
+  @if(message){
+    <div class="alert" [class.success]="message.type==='success'" [class.error]="message.type==='error'" style="margin-top:14px;">
+        {{ message.text }}
+    </div>
+  }
+</div>
+}
